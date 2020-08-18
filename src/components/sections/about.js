@@ -50,16 +50,18 @@ const StyledContentWrapper = styled(ContentWrapper)`
     .about-author {
       border-radius: ${({ theme }) => theme.borderRadius};
       box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
-      filter: grayscale(20%) contrast(1) brightness(90%);
       transition: all 0.3s ease-out;
       &:hover {
-        filter: grayscale(50%) contrast(1) brightness(90%);
+        filter: grayscale(25%) contrast(1) brightness(90%);
         transform: translate3d(0px, -0.125rem, 0px);
         box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
       }
     }
   }
 `
+
+// filter: grayscale(20%) contrast(1) brightness(90%);
+
 
 const About = ({ content }) => {
   const { frontmatter, body } = content[0].node

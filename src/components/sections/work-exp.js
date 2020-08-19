@@ -48,14 +48,24 @@ const WorkIcon = () => {
 const Work = ({ content }) => {
 
   // Extract GraphQL data here  
-  // const sectionDetails = content[0].node
+  const { exports, frontmatter } = content[0].node;
+  const { milestones } = exports
 
   return (
-    <StyledSection id="___SectionHashId___">
+    <StyledSection id="career">
       <StyledContentWrapper>
-        <h3>Career Timeline</h3>
+        <h3 className="section-title">{frontmatter.title}</h3>
         <VerticalTimeline className="vertical-timeline-custom-line">
-          <VerticalTimelineElement
+          {milestones.map((m, i) =>
+            <VerticalTimelineElement icon={m.icon} date={m.date} className="vertical-timeline-element--work">
+              <h3 className="vertical-timeline-element-title">{m.name}</h3>
+              <h4 className="vertical-timeline-element-subtitle">{m.location}</h4>
+              <p>
+                {m.desc}
+              </p>
+            </VerticalTimelineElement>)}
+
+          {/* <VerticalTimelineElement
             className="vertical-timeline-element--work "
             date="2011 - present"
             icon={<WorkIcon />}
@@ -134,7 +144,7 @@ const Work = ({ content }) => {
           </VerticalTimelineElement>
           <VerticalTimelineElement
           // icon={<StarIcon />}
-          />
+          /> */}
         </VerticalTimeline>
         {/* ____SectionContent____ */}
       </StyledContentWrapper>

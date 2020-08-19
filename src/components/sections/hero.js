@@ -58,6 +58,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
     }
     .subtitle {
       margin-top: 0.25rem;
+      background:${({ theme }) => theme.colors.secondary};
       font-weight: 400
     }
     .description {

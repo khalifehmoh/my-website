@@ -20,8 +20,7 @@ const IndexPage = ({ data }) => (
     {/* Articles is populated via Medium RSS Feed fetch */}
     {/* <Articles /> */}
     <About content={data.about.edges} />
-    <Work />
-    {/* content={data.about.edges} */}
+    <Work content={data.career.edges} />
     <Interests content={data.interests.edges} />
     <Projects content={data.projects.edges} />
     <Contact content={data.contact.edges} />
@@ -89,6 +88,23 @@ export const pageQuery = graphql`
             }
           }
         }
+        frontmatter {
+          title
+        }
+      }
+    }
+  }
+  career: allMdx(filter: {fileAbsolutePath: {regex: "/career-timeline/"}}) {
+    edges {
+      node {
+        exports {
+            milestones{
+              name
+              location
+              desc
+              date
+            }
+          }
         frontmatter {
           title
         }

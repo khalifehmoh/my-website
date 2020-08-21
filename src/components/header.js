@@ -77,7 +77,7 @@ const Header = () => {
   const [open, setOpen] = useState(false)
   const [windowWidth, setWindowWidth] = useState(0)
 
-  
+
   useEffect(() => {
     let handleWindowSizeChange
     // if (isSSR) is necessary to prevent error during the gatsby build
@@ -96,7 +96,7 @@ const Header = () => {
   useEffect(() => {
     if (isIntroDone) controls.start({ opacity: 1, y: 0, transition: { delay: 0.2 } })
   }, [isIntroDone, controls])
-  
+
 
   let navigation
   if (detectMobileAndTablet(windowWidth)) {

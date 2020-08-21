@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import Img from "gatsby-image"
-import { motion, useAnimation } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
 
 import { detectMobileAndTablet, isSSR } from "../../utils"
-import { useOnScreen }  from "../../hooks/"
+import { useOnScreen } from "../../hooks/"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Button from "../../styles/Button"
 
@@ -13,7 +13,7 @@ const StyledSection = styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
-  margin-top: 6rem;
+  margin-top: unset;
 `
 
 const StyledContentWrapper = styled(ContentWrapper)`
@@ -62,7 +62,7 @@ const StyledInterests = styled.div`
   &::after {
     content: "";
     width: ${({ itemCount }) =>
-      Math.ceil(itemCount / 2) % 2 === 1 ? "17.125rem" : "2.5rem"};
+    Math.ceil(itemCount / 2) % 2 === 1 ? "17.125rem" : "2.5rem"};
   }
   @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
     grid-auto-flow: row;
@@ -151,14 +151,14 @@ const Interests = ({ content }) => {
         <h3 className="section-title">{frontmatter.title}</h3>
         <StyledInterests itemCount={interests.length} ref={ref}>
           {interests.slice(0, shownInterests).map(({ name, icon }, key) => (
-            <motion.div 
-              className="interest" 
-              key={key} 
-              custom={key} 
+            <motion.div
+              className="interest"
+              key={key}
+              custom={key}
               initial={{ opacity: 0, scaleY: 0 }}
               animate={iControls}
             >
-                <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
+              <Img className="icon" fixed={icon.childImageSharp.fixed} /> {name}
             </motion.div>
           ))}
           {shownInterests < interests.length && (

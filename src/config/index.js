@@ -1,9 +1,9 @@
 module.exports = {
 
     author: "@konstantinmuenster",
-    siteTitle: "Gatsby Starter Portfolio Minimal",
-    siteShortTitle: "Gatsby", // Used as logo text in header, footer, and splash screen
-    siteDescription: "A modern one-page portfolio with a clean yet expressive design.",
+    siteTitle: "Mohammad Khalifeh Front End Engineer",
+    siteShortTitle: "Home", // Used as logo text in header, footer, and splash screen
+    siteDescription: "Mohammad Khalifeh Front-end Engineer Personal Website",
     siteUrl: "https://gatsby-starter-portfolio-minimal.netlify.app/",
     siteLanguage: "en_US",
     siteIcon: "src/content/favicon.png", // Relative to gatsby-config file
@@ -14,42 +14,42 @@ module.exports = {
     // To access your Medium RSS feed, just replace this url with your username: https://medium.com/feed/@{yourname}
     mediumRssFeed: "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fmedium.com%2Ffeed%2F%40konstantin.muenster",
     shownArticles: 3,
-    
+
     // There are icons available for the following platforms: 
     // Medium, GitHub, LinkedIn, XING, Behance
     socialMedia: [
         {
             name: "Linkedin",
-            url: "https://www.linkedin.com/in/konstantin-muenster/"
+            url: "https://www.linkedin.com/in/mohammad-khalifeh/"
         },
-        {
-            name: "Medium",
-            url: "https://medium.com/@konstantin.muenster"
-        },
+        // {
+        //     name: "Medium",
+        //     url: "https://medium.com/@konstantin.muenster"
+        // },
         {
             name: "Github",
-            url: "https://github.com/konstantinmuenster/gatsby-starter-portfolio-minimal"
-        },
-        {
-            name: "Behance",
-            url: "https://www.behance.net/konstanmnster"
-        },
+            url: "https://github.com/khalifehmoh"
+        }
     ],
-  
+
     navLinks: {
         menu: [
-            {
-                name: "Articles",
-                url: "/#articles",
-            },
             {
                 name: "About Me",
                 url: "/#about",
             },
             {
-                name: "Features",
-                url: "/#projects",
+                name: "Career",
+                url: "/#career",
             },
+            {
+                name: "Articles",
+                url: "/#articles",
+            },
+            {
+                name: "Projects",
+                url: "/#projects",
+            }
         ],
         button: {
             name: "Contact",

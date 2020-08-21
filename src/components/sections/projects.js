@@ -16,7 +16,7 @@ const StyledSection = styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
-  margin-top: 6rem;
+  margin-top: unset;
   .cta-btn {
     display: block;
     text-align: center;
@@ -125,7 +125,7 @@ const StyledProject = styled(motion.div)`
     padding-right: 0;
     /* Positioning of image and details should vary */
     flex-direction: ${({ position }) =>
-      position % 2 !== 0 ? "row" : "row-reverse"};
+    position % 2 !== 0 ? "row" : "row-reverse"};
   }
   .details {
     width: 100%;
@@ -285,7 +285,7 @@ const Projects = ({ content }) => {
                     </div>
                     <div className="title">{frontmatter.title}</div>
                     <MDXRenderer>{body}</MDXRenderer>
-                    <div className="tags">
+                    {/* <div className="tags">
                       {frontmatter.tags.map(tag => (
                         <Underlining
                           key={tag}
@@ -295,7 +295,7 @@ const Projects = ({ content }) => {
                           {tag}
                         </Underlining>
                       ))}
-                    </div>
+                    </div> */}
                     <div className="links">
                       {frontmatter.github && (
                         <a
@@ -334,22 +334,6 @@ const Projects = ({ content }) => {
           })}
         </div>
       </StyledContentWrapper>
-      {sectionDetails.frontmatter.buttonVisible === "true" && (
-        <motion.a
-        ref={bRef}
-        variants={bVariants}
-        animate={bOnScreen ? "visible" : "hidden"}
-        className="cta-btn"
-        href={sectionDetails.frontmatter.buttonUrl}
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-        aria-label="External Link"
-      >
-        <Button type="button" textAlign="center" color="primary" center>
-          {sectionDetails.frontmatter.buttonText}
-        </Button>
-      </motion.a>
-      )}
     </StyledSection>
   )
 }

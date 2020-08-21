@@ -37,12 +37,25 @@ const StyledContentWrapper = styled(ContentWrapper)`
   .timeline-icon{
     fill:#424242
   }
+  .vertical-timeline-element-content .vertical-timeline-element-date {
+    padding: .8em;
+    opacity: 0.8
+  }
 `
 
-const WorkIcon = () => {
-  return (
-    <svg class="timeline-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" d="M0 0h24v24H0z"></path><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"></path></svg>
-  )
+const MileIcon = (props) => {
+  if (props.icon === 'work') {
+    return (<svg className="timeline-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" d="M0 0h24v24H0z"></path><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"></path></svg>)
+  }
+  else if (props.icon === 'education') {
+    return (<svg className="timeline-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg>)
+  }
+  else if (props.icon === 'star') {
+    return (<svg className="timeline-icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>)
+  }
+  else {
+    return (null)
+  }
 }
 
 const Work = ({ content }) => {
@@ -57,96 +70,14 @@ const Work = ({ content }) => {
         <h3 className="section-title">{frontmatter.title}</h3>
         <VerticalTimeline className="vertical-timeline-custom-line">
           {milestones.map((m, i) =>
-            <VerticalTimelineElement icon={m.icon} date={m.date} className="vertical-timeline-element--work">
+            <VerticalTimelineElement key={i} icon={<MileIcon icon={m.icon} />} date={m.date} className="vertical-timeline-element--work">
               <h3 className="vertical-timeline-element-title">{m.name}</h3>
               <h4 className="vertical-timeline-element-subtitle">{m.location}</h4>
               <p>
                 {m.desc}
               </p>
             </VerticalTimelineElement>)}
-
-          {/* <VerticalTimelineElement
-            className="vertical-timeline-element--work "
-            date="2011 - present"
-            icon={<WorkIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Creative Director</h3>
-            <h4 className="vertical-timeline-element-subtitle">Miami, FL</h4>
-            <p>
-              Creative Direction, User Experience, Visual Design, Project Management, Team Leading
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2010 - 2011"
-          // icon={<WorkIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Art Director</h3>
-            <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-            <p>
-              Creative Direction, User Experience, Visual Design, SEO, Online Marketing
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2008 - 2010"
-          // icon={<WorkIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Web Designer</h3>
-            <h4 className="vertical-timeline-element-subtitle">Los Angeles, CA</h4>
-            <p>
-              User Experience, Visual Design
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--work"
-            date="2006 - 2008"
-          // icon={<WorkIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Web Designer</h3>
-            <h4 className="vertical-timeline-element-subtitle">San Francisco, CA</h4>
-            <p>
-              User Experience, Visual Design
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="April 2013"
-          // icon={<SchoolIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Content Marketing for Web, Mobile and Social Media</h3>
-            <h4 className="vertical-timeline-element-subtitle">Online Course</h4>
-            <p>
-              Strategy, Social Media
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="November 2012"
-          // icon={<SchoolIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Agile Development Scrum Master</h3>
-            <h4 className="vertical-timeline-element-subtitle">Certification</h4>
-            <p>
-              Creative Direction, User Experience, Visual Design
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-            className="vertical-timeline-element--education"
-            date="2002 - 2006"
-          // icon={<SchoolIcon />}
-          >
-            <h3 className="vertical-timeline-element-title">Bachelor of Science in Interactive Digital Media Visual Imaging</h3>
-            <h4 className="vertical-timeline-element-subtitle">Bachelor Degree</h4>
-            <p>
-              Creative Direction, Visual Design
-    </p>
-          </VerticalTimelineElement>
-          <VerticalTimelineElement
-          // icon={<StarIcon />}
-          /> */}
         </VerticalTimeline>
-        {/* ____SectionContent____ */}
       </StyledContentWrapper>
     </StyledSection>
   )

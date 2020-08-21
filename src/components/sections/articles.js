@@ -1,53 +1,70 @@
-import React, { useState, useEffect, useContext } from "react"
+import React, { useState, useEffect, useRef } from "react"
+import PropTypes from "prop-types"
 import styled from "styled-components"
-import SkeletonLoader from "tiny-skeleton-loader-react"
-import { motion, useAnimation } from "framer-motion"
+import { MDXRenderer } from "gatsby-plugin-mdx"
+import Img from "gatsby-image"
+import VisibilitySensor from "react-visibility-sensor"
+import { motion } from "framer-motion"
 
-import Context from "../../context"
-import config from "../../config"
-import { parseDate } from "../../utils"
+import { useOnScreen } from "../../hooks"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Underlining from "../../styles/Underlining"
+import Button from "../../styles/Button"
+import Icon from "../icons"
 
-const { mediumRssFeed, shownArticles } = config
-
-const StyledSection = motion.custom(styled.section`
+const StyledSection = styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
-`)
+  margin-top: unset;
+  .cta-btn {
+    display: block;
+    text-align: center;
+    margin: 2rem auto;
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      margin: 0 auto;
+    }
+  }
+`
 
 const StyledContentWrapper = styled(ContentWrapper)`
   && {
     width: 100%;
     height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-right: 0;
     padding-left: 0;
-    @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
     }
     .section-title {
       padding-right: 2.5rem;
       padding-left: 2.5rem;
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
         padding-right: 0;
         padding-left: 0;
       }
     }
     .articles {
       display: flex;
-      justify-content: space-between;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: -2.5rem;
+      padding: 2.5rem 0rem;
       overflow-x: scroll;
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
-      margin: -2rem 0 0 0;
-      padding: 0 2rem;
       &::-webkit-scrollbar {
         display: none;
       }
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-        padding: 0;
+      @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+        // flex-direction: column;
+        // margin-top: 0;
+        // padding: 0;
         overflow: visible;
       }
       /* Show scrollbar if desktop and wrapper width > viewport width */
@@ -73,125 +90,232 @@ const StyledContentWrapper = styled(ContentWrapper)`
         }
       }
     }
-    .card {
-      width: 16.25rem;
-      height: 12rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 1rem;
-      margin: 2rem 1rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.16);
-      border-radius: ${({ theme }) => theme.borderRadius};
-      transition: box-shadow 0.3s ease-out;
-      &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.32);
-      }
-      &:hover ${Underlining} {
-        box-shadow: inset 0 -1rem 0 ${({ theme }) => theme.colors.secondary};
-      }
-      @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-        margin: 2rem auto;
-      }
-      .category {
-        color: ${({ theme }) => theme.colors.primary};
-        text-transform: uppercase;
-        letter-spacing: +1px;
-        font-weight: 700;
-      }
-      .title {
-        margin-top: 0.25rem;
-        margin-bottom: 0.25rem;
-      }
-      .date {
-        font-size: 0.75rem;
-        color: #555555;
-        letter-spacing: +0.5px;
+    .counter {
+      position: absolute;
+      top: 2.2rem;
+      right: 2.5rem;
+      font-size: 1.125rem;
+      font-weight: 500;
+      @media (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+        display: none;
       }
     }
   }
 `
 
-const Articles = () => {
-  // shownArticles is set in config.js, due to the rss feed loader
-  // it is currently limited to max 3
-  const MAX_ARTICLES = shownArticles
-
-  const { isIntroDone } = useContext(Context).state
-  const [articles, setArticles] = useState()
-  const articlesControls = useAnimation()
-  
-  // Load and display articles after the splashScreen sequence is done
-  useEffect(() => {
-    const loadArticles = async () => {
-      if (isIntroDone) {
-        await articlesControls.start({ opacity: 1, y: 0, transition: { delay: 1 } })
-        // MediumRssFeed is set in config.js
-        fetch(mediumRssFeed, { headers: { Accept: "application/json" } })
-        .then(res => res.json())
-        // Feed also contains comments, therefore we filter for articles only
-        .then(data => data.items.filter(item => item.categories.length > 0))
-        .then(newArticles => newArticles.slice(0, MAX_ARTICLES))
-        .then(articles => setArticles(articles))
-        .catch(error => console.log(error))
+const StyledArticle = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 2rem;
+  flex-shrink: 0;
+  padding-right: 2.5rem;
+  max-width: 30rem;
+  box-shadow: 0 0 2.5rem rgba(0,0,0,0.16);
+  transition: all 0.3s ease-out;
+  cursor:pointer;
+  border-radius: ${({ theme }) => theme.borderRadius};
+  &:hover {
+    transform: translate3d(0px, -0.125rem, 0px);
+    box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
+    max-width: 25rem;
+    margin-top: 2rem;
+    padding-right: 5rem;
+  }
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    justify-content: space-between;
+    flex-shrink: 1;
+    width: 40%;
+    margin-right: 40px;
+    max-width: 30rem;
+    margin-bottom: 10rem;
+    padding-right: 0;
+    /* Positioning of image and details should vary */
+    flex-direction: column;
+  .details {
+    width: 100%;
+    max-width: 25rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    padding: 30px;
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      margin-top: 0;
+    }
+    .category {
+      font-size: 0.875rem;
+      line-height: 1rem;
+      text-transform: uppercase;
+      letter-spacing: +1px;
+    }
+    .title {
+      margin-top: 0.625rem;
+      margin-bottom: 0.625rem;
+      font-size: 1.375rem;
+      line-height: 1.625rem;
+      font-weight: 700;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+      line-height: 1.2rem;
+      span {
+        margin-right: 1rem;
+        margin-bottom: 1rem;
       }
     }
-    loadArticles()
-  },[isIntroDone, articlesControls, MAX_ARTICLES])
+    .links {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      margin-top: 1rem;
+      a {
+        display: inline-block;
+        margin-right: 2rem;
+      }
+      svg {
+        width: 1.3rem;
+        height: 1.3rem;
+        transition: all 0.3s ease-out;
+      }
+      svg:hover {
+        fill: ${({ theme }) => theme.colors.primary};
+      }
+    }
+  }
+  .screenshot {
+    width: 100%;
+    max-width: 25rem;
+    height: 15rem;
+    box-shadow: 0 0 2.5rem rgba(0,0,0,0.16);
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    border-radius: ${({ theme }) => theme.borderRadius} ${({ theme }) => theme.borderRadius} 0 0;
+    @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+      height: 13.75rem;
+    }
+  }
+`
+// flex-direction: ${({ position }) =>
+//   position % 2 !== 0 ? "row" : "row-reverse"};
+// }
+const Articles = ({ content }) => {
+  const sectionDetails = content[0].node
+  const articles = content.slice(1, content.length)
+
+  // visibleProject is needed to show which project is currently
+  // being viewed in the horizontal slider on mobile and tablet
+  const [visibleArticle, setVisibleArticle] = useState(1)
+
+  // articles don't track the visibility by using the onScreen hook
+  // instead they use react-visibility-sensor, therefore their visibility
+  // is also stored differently
+  const [onScreen, setOnScreen] = useState({})
+  const handleOnScreen = el => {
+    if (!onScreen[el]) {
+      const updatedOnScreen = { ...onScreen }
+      updatedOnScreen[el] = true
+      setOnScreen(updatedOnScreen)
+    }
+  }
+  const pVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  }
+
+  useEffect(() => {
+    console.log(content)
+    // mobile and tablet only: set first project as visible in the
+    // horizontal slider
+    setVisibleArticle(1)
+    // required for animations: set visibility for all articles to
+    // "false" initially
+    let initial = {}
+    articles.forEach(article => {
+      initial[article.node.frontmatter.position] = false
+    })
+    setOnScreen(initial)
+  }, [])
+
+  // Required for animating the title
+  const tRef = useRef()
+  const tOnScreen = useOnScreen(tRef)
+  const tVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  }
 
   return (
-    <StyledSection
-      id="articles"
-      initial={{ opacity: 0, y: 20 }}
-      animate={articlesControls}
-    >
+    <StyledSection id="articles">
       <StyledContentWrapper>
-        <h3 className="section-title">Latest Articles on Medium</h3>
+        <motion.div
+          ref={tRef}
+          variants={tVariants}
+          animate={tOnScreen ? "visible" : "hidden"}
+        >
+          <h3 className="section-title">{sectionDetails.frontmatter.title}</h3>
+          <div className="counter">
+            {visibleArticle} / {articles.length}
+          </div>
+        </motion.div>
         <div className="articles">
-          {articles
-            ? articles.map(item => (
-                <a
-                  href={item.link}
-                  target="_blank"
-                  rel="nofollow noopener noreferrer"
-                  title={item.title}
-                  aria-label={item.link}
-                  key={item.link}
+          {articles.map(article => {
+            const { body, frontmatter } = article.node
+            return (
+              <VisibilitySensor
+                key={frontmatter.position}
+                onChange={() => handleOnScreen(frontmatter.position)}
+                partialVisibility={true}
+                minTopValue={100}
+              >
+                <StyledArticle
+                  position={frontmatter.position}
+                  variants={pVariants}
+                  animate={
+                    onScreen[frontmatter.position] ? "visible" : "hidden"
+                  }
                 >
-                  <div className="card">
-                    <span className="category">
-                      <Underlining color="tertiary" hoverColor="secondary">
-                        {item.categories[2]}
-                      </Underlining>
-                    </span>
-                    <h4 className="title">{item.title}</h4>
-                    <span className="date">{parseDate(item.pubDate)}</span>
+                  <VisibilitySensor
+                    onChange={() => setVisibleArticle(frontmatter.position)}
+                  >
+                    <Img
+                      className="screenshot"
+                      fluid={frontmatter.screenshot.childImageSharp.fluid}
+                    />
+                  </VisibilitySensor>
+                  <div className="details">
+                    <div className="category">
+                      {frontmatter.emoji} {frontmatter.category}
+                    </div>
+                    <div className="title">{frontmatter.title}</div>
+                    <MDXRenderer>{body}</MDXRenderer>
                   </div>
-                </a>
-              ))
-            : [...Array(MAX_ARTICLES)].map((i, key) => (
-              <div className="card" key={key}>
-                <SkeletonLoader 
-                  background="#f2f2f2"
-                  height="1.5rem" 
-                  style={{ marginBottom: ".5rem" }}
-                />
-                <SkeletonLoader 
-                  background="#f2f2f2" 
-                  height="4rem"
-                />
-                <SkeletonLoader 
-                  background="#f2f2f2" 
-                  height=".75rem" 
-                  width="50%" 
-                  style={{ marginTop: ".5rem" }}
-                />
-              </div>
-            ))}
+                  {/* If image in viewport changes, update state accordingly */}
+                </StyledArticle>
+              </VisibilitySensor>
+            )
+          })}
         </div>
       </StyledContentWrapper>
     </StyledSection>
   )
+}
+
+Articles.propTypes = {
+  content: PropTypes.arrayOf(
+    PropTypes.shape({
+      node: PropTypes.shape({
+        body: PropTypes.string.isRequired,
+        frontmatter: PropTypes.object.isRequired,
+      }).isRequired,
+    }).isRequired
+  ).isRequired,
 }
 
 export default Articles

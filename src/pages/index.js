@@ -15,14 +15,13 @@ import { splashScreen } from "../config"
 
 const IndexPage = ({ data }) => (
   <Layout splashScreen={splashScreen}>
-    <SEO title="Portfolio Minimal - A Gatsby Starter." />
+    <SEO title="Mohammad Khalifeh" />
     <Hero content={data.hero.edges} />
-    {/* Articles is populated via Medium RSS Feed fetch */}
-    {/* <Articles /> */}
     <About content={data.about.edges} />
     <Work content={data.career.edges} />
-    <Interests content={data.interests.edges} />
+    <Articles content={data.articles.edges} />
     <Projects content={data.projects.edges} />
+    <Interests content={data.interests.edges} />
     <Contact content={data.contact.edges} />
   </Layout>
 )
@@ -103,6 +102,7 @@ export const pageQuery = graphql`
               location
               desc
               date
+              icon
             }
           }
         frontmatter {
@@ -111,6 +111,27 @@ export const pageQuery = graphql`
       }
     }
   }
+  articles: allMdx(filter: {fileAbsolutePath: {regex: "/articles/"},frontmatter: {visiblity: {eq: "true"}}}, sort: {fields: [frontmatter___position], order: ASC}) {
+      edges {
+        node {
+          body
+          frontmatter {
+            title
+            visiblity
+            category
+            screenshot {
+              childImageSharp {
+                fluid(maxWidth: 400, quality: 90) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            link
+            position
+          }
+        }
+      }
+    }
   projects: allMdx(filter: {fileAbsolutePath: {regex: "/projects/"}, frontmatter: {visible: {eq: "true"}}}, sort: {fields: [frontmatter___position], order: ASC}) {
     edges {
       node {
@@ -158,3 +179,5 @@ export const pageQuery = graphql`
   }
 }
 `
+
+

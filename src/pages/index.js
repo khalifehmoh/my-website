@@ -19,7 +19,7 @@ const IndexPage = ({ data }) => (
     <Hero content={data.hero.edges} />
     <About content={data.about.edges} />
     <Work content={data.career.edges} />
-    <Articles content={data.articles.edges} />
+    <Articles content={data.posts.edges} />
     <Projects content={data.projects.edges} />
     <Interests content={data.interests.edges} />
     <Contact content={data.contact.edges} />
@@ -111,7 +111,7 @@ export const pageQuery = graphql`
       }
     }
   }
-  articles: allMdx(filter: {fileAbsolutePath: {regex: "/articles/"},frontmatter: {visiblity: {eq: "true"}}}, sort: {fields: [frontmatter___position], order: ASC}) {
+  posts: allMdx(filter: {fileAbsolutePath: {regex: "/posts/"},frontmatter: {visiblity: {eq: "true"}}}, sort: {fields: [frontmatter___position], order: ASC}) {
       edges {
         node {
           body

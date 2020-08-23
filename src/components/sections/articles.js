@@ -8,15 +8,12 @@ import { motion } from "framer-motion"
 
 import { useOnScreen } from "../../hooks"
 import ContentWrapper from "../../styles/ContentWrapper"
-import Underlining from "../../styles/Underlining"
-import Button from "../../styles/Button"
-import Icon from "../icons"
 
 const StyledSection = styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
-  margin-top: unset;
+  margin-top: 3rem;
   .cta-btn {
     display: block;
     text-align: center;
@@ -54,7 +51,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
       flex-direction: row;
       flex-wrap: wrap;
       margin-top: -2.5rem;
-      padding: 2.5rem 0rem;
+      padding: 4.5rem 2.5rem 0 2.5rem;
       overflow-x: scroll;
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
@@ -65,6 +62,7 @@ const StyledContentWrapper = styled(ContentWrapper)`
         // flex-direction: column;
         // margin-top: 0;
         // padding: 0;
+        padding: 4.5rem 0rem 0rem 0rem;
         overflow: visible;
       }
       /* Show scrollbar if desktop and wrapper width > viewport width */
@@ -106,42 +104,40 @@ const StyledContentWrapper = styled(ContentWrapper)`
 const StyledArticle = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
   margin-top: 0;
   margin-bottom: 2rem;
-  flex-shrink: 0;
-  padding-right: 2.5rem;
   max-width: 30rem;
   box-shadow: 0 0 2.5rem rgba(0,0,0,0.16);
   transition: all 0.3s ease-out;
   cursor:pointer;
   border-radius: ${({ theme }) => theme.borderRadius};
+  justify-content: space-between;
+  flex-shrink: 1;
+  width: 40%;
+  margin-right: 40px;
+  margin-bottom: 10rem;
+  padding-right: 0;
+  flex-direction: column;
   &:hover {
     transform: translate3d(0px, -0.125rem, 0px);
     box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.32);
   }
-  @media (min-width: ${({ theme }) => theme.breakpoints.xs}) {
+  @media (max-width: ${({ theme }) => theme.breakpoints.xs}) {
     max-width: 25rem;
-    margin-top: 2rem;
-    padding-right: 5rem;
+    margin-top: 0rem;
+    padding-right: 0rem;
+    margin-right:0px;
   }
-  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    justify-content: space-between;
-    flex-shrink: 1;
-    width: 40%;
-    margin-right: 40px;
-    max-width: 30rem;
-    margin-bottom: 10rem;
-    padding-right: 0;
-    /* Positioning of image and details should vary */
-    flex-direction: column;
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: auto;
+  }
   .details {
     width: 100%;
     max-width: 25rem;
     display: flex;
     flex-direction: column;
-    margin-top: 3rem;
+    // margin-top: 3rem;
     padding: 30px;
     @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       margin-top: 0;
@@ -193,18 +189,13 @@ const StyledArticle = styled(motion.div)`
     width: 100%;
     max-width: 25rem;
     height: 15rem;
-    box-shadow: 0 0 2.5rem rgba(0,0,0,0.16);
-    -webkit-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
     border-radius: ${({ theme }) => theme.borderRadius} ${({ theme }) => theme.borderRadius} 0 0;
     @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
       height: 13.75rem;
     }
   }
 `
-// flex-direction: ${({ position }) =>
-//   position % 2 !== 0 ? "row" : "row-reverse"};
-// }
+
 const Articles = ({ content }) => {
   const sectionDetails = content[0].node
   const articles = content.slice(1, content.length)
@@ -281,14 +272,18 @@ const Articles = ({ content }) => {
                     onScreen[frontmatter.position] ? "visible" : "hidden"
                   }
                 >
-                  <VisibilitySensor
+                  {/* <VisibilitySensor
                     onChange={() => setVisibleArticle(frontmatter.position)}
                   >
                     <Img
                       className="screenshot"
                       fluid={frontmatter.screenshot.childImageSharp.fluid}
                     />
-                  </VisibilitySensor>
+                  </VisibilitySensor> */}
+                  <Img
+                    className="screenshot"
+                    fluid={frontmatter.screenshot.childImageSharp.fluid}
+                  />
                   <div className="details">
                     <div className="category">
                       {frontmatter.emoji} {frontmatter.category}
@@ -305,17 +300,6 @@ const Articles = ({ content }) => {
       </StyledContentWrapper>
     </StyledSection>
   )
-}
-
-Articles.propTypes = {
-  content: PropTypes.arrayOf(
-    PropTypes.shape({
-      node: PropTypes.shape({
-        body: PropTypes.string.isRequired,
-        frontmatter: PropTypes.object.isRequired,
-      }).isRequired,
-    }).isRequired
-  ).isRequired,
 }
 
 export default Articles

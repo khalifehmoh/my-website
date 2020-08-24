@@ -14,7 +14,10 @@ module.exports = {
     lg: "1200px",
   },
   fonts: {
-    primary: "Roboto, Arial, sans-serif",
+    primary: "'Source Serif Pro', serif",
+    // primary: "Roboto, Arial, sans-serif",
+    // primary: "'Open Sans', sans-serif;",
+
   },
   borderRadius: "1rem",
   pageWidth: "62.5rem",

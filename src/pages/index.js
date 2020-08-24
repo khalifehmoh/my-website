@@ -13,18 +13,21 @@ import Contact from "../components/sections/contact"
 import Work from "../components/sections/work-exp"
 import { splashScreen } from "../config"
 
-const IndexPage = ({ data }) => (
-  <Layout splashScreen={splashScreen}>
-    <SEO title="Mohammad Khalifeh" />
-    <Hero content={data.hero.edges} />
-    <About content={data.about.edges} />
-    <Work content={data.career.edges} />
-    <Articles content={data.posts.edges} />
-    <Projects content={data.projects.edges} />
-    <Interests content={data.interests.edges} />
-    <Contact content={data.contact.edges} />
-  </Layout>
-)
+const IndexPage = ({ data }) => {
+  const articles = data.posts.edges.slice(1, data.posts.edges.length);
+  return (
+    <Layout splashScreen={splashScreen}>
+      <SEO title="Mohammad Khalifeh" />
+      <Hero content={data.hero.edges} />
+      <About content={data.about.edges} />
+      <Work content={data.career.edges} />
+      {articles.length > 0 ? (<Articles content={data.posts.edges} />) : null}
+      <Projects content={data.projects.edges} />
+      <Interests content={data.interests.edges} />
+      <Contact content={data.contact.edges} />
+    </Layout>
+  )
+}
 
 IndexPage.propTypes = {
   data: PropTypes.object.isRequired,
@@ -117,6 +120,8 @@ export const pageQuery = graphql`
           body
           frontmatter {
             title
+            author
+            pubdate
             visiblity
             category
             screenshot {
@@ -126,8 +131,10 @@ export const pageQuery = graphql`
                 }
               }
             }
+            screenshotAlt
             link
             position
+            tags
           }
         }
       }
@@ -168,7 +175,7 @@ export const pageQuery = graphql`
           email
           profileImage {
             childImageSharp {
-              fluid(maxWidth: 400, quality: 90) {
+              fluid(maxWidth: 400, quality: 100) {
                 ...GatsbyImageSharpFluid
               }
             }

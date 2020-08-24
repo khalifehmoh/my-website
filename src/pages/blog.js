@@ -8,8 +8,9 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import ContentWrapper from "../styles/ContentWrapper"
 import Img from "gatsby-image"
+import Underlining from "../styles/Underlining"
 
-const StyledSection = styled.section`
+const StyledSection = styled.article`
   width: 100%;
   max-width: 62.5rem;
   margin: 0 auto;
@@ -18,6 +19,7 @@ const StyledSection = styled.section`
   background: ${({ theme }) => theme.colors.background};
   h1 {
       font-size: 2rem;
+      line-height: 2.7rem
   }
   h2 {
       font-size: 1.25rem;
@@ -35,11 +37,34 @@ const StyledContentWrapper = styled(ContentWrapper)`
     padding: 0;
     height: 100%;
   }
+  .article-title{
+    margin-top: 4rem;
+    margin-bottom: 0;
+  }
+  .article-subtitle{
+    margin-top: 0;
+    font-style: italic;
+    text-decoration: underline;
+    margin-bottom: 0
+  }
+  .article-pubDate{
+    font-style: italic;
+  }
   .screenshot{
     height: 30rem
   }
   figcaption{
     text-align: center
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+    line-height: 1.2rem;
+    span {
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 `
 
@@ -53,9 +78,11 @@ export default function Blog({ data: { mdx } }) {
       <StyledSection id={frontmatter.title}>
         <StyledContentWrapper>
           <h1 className="article-title">{frontmatter.title}</h1>
-          <h3 className="article-subtitle">{frontmatter.title}</h3>
+          <h3 className="article-subtitle">By {frontmatter.author}</h3>
+          <span className="article-pubDate">published on: {frontmatter.pubdate}</span>
           <figure>
             <Img
+              alt={frontmatter.screenshotAlt}
               className="screenshot"
               fluid={frontmatter.screenshot.childImageSharp.fluid}
             />
@@ -64,6 +91,17 @@ export default function Blog({ data: { mdx } }) {
           <MDXProvider components={shortcodes}>
             <MDXRenderer>{body}</MDXRenderer>
           </MDXProvider>
+          <div className="tags">
+            {frontmatter.tags.map(tag => (
+              <Underlining
+                key={tag}
+                color="secondary"
+                hoverColor="secondary"
+              >
+                {tag}
+              </Underlining>
+            ))}
+          </div>
         </StyledContentWrapper>
       </StyledSection>
     </Layout>
@@ -77,7 +115,8 @@ export const pageQuery = graphql`
       body
       frontmatter {
         title
-        subtitle
+        author
+        pubdate
         visiblity
         category
         screenshot {
@@ -87,9 +126,11 @@ export const pageQuery = graphql`
             }
           }
         }
+        screenshotAlt
         imageDesc
         link
         position
+        tags
       }
     }
   }

@@ -22,9 +22,11 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         background-color: #ffffff;
         color: ${({ theme }) => theme.colors.text};
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-family: ${({ theme }) => theme.fonts.primary};
-        line-height: 1.5rem;
+        line-height: 2rem;
+        // ont-size: 1.3rem;
+        // line-height: 2.3rem;
         font-weight: 400;
         text-rendering: optimizeLegibility;
         &.blur {

@@ -14,7 +14,7 @@ const StyledSection = styled.section`
   width: 100%;
   height: auto;
   background: ${({ theme }) => theme.colors.background};
-  margin-top: unset;
+  margin-top: 2rem;
   .cta-btn {
     display: block;
     text-align: center;

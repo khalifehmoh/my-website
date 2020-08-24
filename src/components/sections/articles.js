@@ -273,13 +273,13 @@ const Articles = ({ content }) => {
                   }
                 >
                   {/* <VisibilitySensor
-                    onChange={() => setVisibleArticle(frontmatter.position)}
-                  >
-                    <Img
-                      className="screenshot"
-                      fluid={frontmatter.screenshot.childImageSharp.fluid}
-                    />
-                  </VisibilitySensor> */}
+              onChange={() => setVisibleArticle(frontmatter.position)}
+            >
+              <Img
+                className="screenshot"
+                fluid={frontmatter.screenshot.childImageSharp.fluid}
+              />
+            </VisibilitySensor> */}
                   <Img
                     className="screenshot"
                     fluid={frontmatter.screenshot.childImageSharp.fluid}
@@ -289,7 +289,7 @@ const Articles = ({ content }) => {
                       {frontmatter.emoji} {frontmatter.category}
                     </div>
                     <div className="title">{frontmatter.title}</div>
-                    <MDXRenderer>{body}</MDXRenderer>
+                    {frontmatter.short}
                   </div>
                   {/* If image in viewport changes, update state accordingly */}
                 </StyledArticle>

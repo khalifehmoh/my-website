@@ -63,6 +63,7 @@ export const pageQuery = graphql`
         body
         frontmatter {
           title
+          alt
           image {
             childImageSharp {
               fluid(maxWidth: 400, quality: 90) {
@@ -156,6 +157,7 @@ export const pageQuery = graphql`
               }
             }
           }
+          screenshotAlt
           tags
           position
           buttonVisible

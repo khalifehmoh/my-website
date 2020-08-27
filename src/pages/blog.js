@@ -16,16 +16,17 @@ const StyledSection = styled.article`
   margin: 0 auto;
   padding: 0 2.5rem;
   height: auto;
+  font-size: 1.2rem;
   background: ${({ theme }) => theme.colors.background};
   h1 {
       font-size: 2rem;
       line-height: 2.7rem
   }
   h2 {
-      font-size: 1.25rem;
+      font-size: 1.7rem;
   }
   h3 {
-      font-size: 1rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
   }
 `
@@ -54,9 +55,11 @@ const StyledContentWrapper = styled(ContentWrapper)`
     height: 30rem
   }
   figcaption{
-    text-align: center
+    text-align: center;
+    color: #3c3c3c;
   }
   .tags {
+    
     display: flex;
     flex-wrap: wrap;
     margin-top: 1.5rem;

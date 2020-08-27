@@ -103,6 +103,7 @@ const About = ({ content }) => {
           animate={iOnScreen ? "visible" : "hidden"}
         >
           <Img
+            alt={frontmatter.alt}
             className="about-author"
             fluid={frontmatter.image.childImageSharp.fluid}
           />

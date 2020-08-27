@@ -23,6 +23,10 @@ const StyledSection = styled.section`
       margin: 0 auto;
     }
   }
+  p{
+    margin-block-start:5px;
+    margin-block-end:5px;
+  }
 `
 
 const StyledContentWrapper = styled(ContentWrapper)`
@@ -322,6 +326,7 @@ const Projects = ({ content }) => {
                     onChange={() => setVisibleProject(frontmatter.position)}
                   >
                     <Img
+                      alt={frontmatter.screenshotAlt}
                       className="screenshot"
                       fluid={frontmatter.screenshot.childImageSharp.fluid}
                     />

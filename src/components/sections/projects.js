@@ -9,6 +9,7 @@ import { motion } from "framer-motion"
 import { useOnScreen } from "../../hooks"
 import ContentWrapper from "../../styles/ContentWrapper"
 import Icon from "../../components/icons"
+import Underlining from "../../styles/Underlining"
 
 const StyledSection = styled.section`
   width: 100%;
@@ -243,14 +244,6 @@ const Projects = ({ content }) => {
     visible: { opacity: 1 },
   }
 
-  // Required for animating the button
-  const bRef = useRef()
-  const bOnScreen = useOnScreen(bRef)
-  const bVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  }
-
   return (
     <StyledSection id="projects">
       <StyledContentWrapper>
@@ -287,7 +280,7 @@ const Projects = ({ content }) => {
                     </div>
                     <div className="title">{frontmatter.title}</div>
                     <MDXRenderer>{body}</MDXRenderer>
-                    {/* <div className="tags">
+                    <div className="tags">
                       {frontmatter.tags.map(tag => (
                         <Underlining
                           key={tag}
@@ -297,7 +290,7 @@ const Projects = ({ content }) => {
                           {tag}
                         </Underlining>
                       ))}
-                    </div> */}
+                    </div>
                     <div className="links">
                       {frontmatter.github && (
                         <a

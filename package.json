@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-portfolio-minimal",
-  "description": "A clean, one-page portfolio using MDX",
+  "name": "mohammad-khalifeh-website",
+  "description": "Mohammad Khalifeh pesonal website",
   "version": "1.0.0",
-  "author": "Konstantin Münster <mail@konstantin.digital>",
+  "author": "Mohammad Khalifeh",
   "dependencies": {
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
@@ -61,9 +61,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/konstantinmuenster/gatsby-starter-portfolio-minimal"
-  },
-  "bugs": {
-    "url": "https://github.com/konstantinmuenster/gatsby-starter-portfolio-minimal/issues"
+    "url": "https://github.com/khalifehmoh/my-website"
   }
 }

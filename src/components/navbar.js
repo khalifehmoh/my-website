@@ -23,7 +23,7 @@ const StyledNav = styled.nav`
     font-weight: 700;
     text-align: center;
     position: relative;
-    margin: 0 0 0 1.25rem;
+    margin: 0 0.3rem 0 0.3rem;
     padding: 0;
     &::before {
       transition: 200ms ease-out;

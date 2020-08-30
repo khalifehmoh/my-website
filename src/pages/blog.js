@@ -87,7 +87,7 @@ export default function Blog({ data: { mdx } }) {
             <Img
               alt={frontmatter.screenshotAlt}
               className="screenshot"
-              fluid={frontmatter.screenshot.childImageSharp.fluid}
+              fluid={frontmatter.screenshot?.childImageSharp?.fluid}
             />
             <figcaption>{frontmatter.imageDesc}</figcaption>
           </figure>
@@ -95,7 +95,7 @@ export default function Blog({ data: { mdx } }) {
             <MDXRenderer>{body}</MDXRenderer>
           </MDXProvider>
           <div className="tags">
-            {frontmatter.tags.map(tag => (
+            {frontmatter.tags?.map(tag => (
               <Underlining
                 key={tag}
                 color="secondary"

@@ -1,6 +1,6 @@
 module.exports = {
 
-    author: "@konstantinmuenster",
+    author: "mohammad khalifeh",
     siteTitle: "Mohammad Khalifeh Front End Engineer",
     siteShortTitle: "Home", // Used as logo text in header, footer, and splash screen
     siteDescription: "Mohammad Khalifeh Front-end Engineer Personal Website",
@@ -54,8 +54,8 @@ module.exports = {
 
     footerLinks: [
         // {
-        //     name: "Privacy",
-        //     url: "/privacy"
+        //     name: "Contact",
+        //     url: "/#contact"
         // },
         // {
         //     name: "Imprint",

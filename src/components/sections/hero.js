@@ -2,13 +2,10 @@ import React, { useEffect, useContext } from "react"
 import PropTypes from "prop-types"
 import styled from "styled-components"
 import Img from "gatsby-image"
-import { MDXRenderer } from "gatsby-plugin-mdx"
 import { motion, useAnimation } from "framer-motion"
 
 import Context from "../../context/"
 import ContentWrapper from "../../styles/ContentWrapper"
-import Underlining from "../../styles/Underlining"
-import Social from "../social"
 import SplashScreen from "../splashScreen"
 import Theme from "../../styles/Theme"
 
@@ -69,10 +66,8 @@ const StyledContentWrapper = styled(ContentWrapper)`
   }
 `
 
-const AnimatedUnderlining = motion.custom(Underlining)
-
 const Hero = ({ content }) => {
-  const { frontmatter, body } = content[0].node
+  const { frontmatter } = content[0].node
   const { isIntroDone } = useContext(Context).state
 
   // Controls to orchestrate animations of greetings, emoji, social profiles, underlining

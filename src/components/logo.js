@@ -4,10 +4,6 @@ import styled from "styled-components"
 import logo from "../content/favicon.png"
 import inv_logo from "../content/favicon-inv.png"
 
-import config from "../config"
-
-const { siteShortTitle } = config
-
 const StyledLogo = styled.div`
   position: relative;
   z-index: 13;
@@ -24,7 +20,12 @@ const StyledLogo = styled.div`
   img{
     width: 100px;
   }
-`
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    img{
+      width: 85px
+    }
+  }
+  `
 
 const Logo = ({ isFooter }) => {
   let shownLogo;

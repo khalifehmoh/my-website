@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import PropTypes from "prop-types"
 import styled from "styled-components"
-import { MDXRenderer } from "gatsby-plugin-mdx"
 import Img from "gatsby-image"
 import VisibilitySensor from "react-visibility-sensor"
 import { motion } from "framer-motion"
@@ -257,7 +255,7 @@ const Articles = ({ content }) => {
         </motion.div>
         <div className="articles">
           {articles.map(article => {
-            const { body, frontmatter } = article.node
+            const { frontmatter } = article.node
             return (
               <VisibilitySensor
                 key={frontmatter.position}

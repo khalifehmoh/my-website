@@ -47,6 +47,11 @@ const StyledContentWrapper = styled(ContentWrapper)`
         margin-left: 2rem;
       }
     }
+    .image-label{
+      text-align:center;
+      width: 100%;
+      display:block
+    }
     .about-author {
       border-radius: ${({ theme }) => theme.borderRadius};
       box-shadow: 0 0 2.5rem rgba(0, 0, 0, 0.16);
@@ -107,6 +112,7 @@ const About = ({ content }) => {
             className="about-author"
             fluid={frontmatter.image.childImageSharp.fluid}
           />
+          <label className="image-label">{frontmatter.imageDesc}</label>
         </motion.div>
       </StyledContentWrapper>
     </StyledSection>

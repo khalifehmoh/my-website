@@ -34,12 +34,18 @@ const StyledContentWrapper = styled(ContentWrapper)`
     color: #424242;
     box-shadow: 0 0 0 4px #fff, inset 0 2px 1px 0px #424242, 0 6px 6px 3px #424242;;
   }
+  .vertical-timeline-element-content p{
+    font-size: 1rem
+  }
   .timeline-icon{
     fill:#424242
   }
-  .vertical-timeline-element-content .vertical-timeline-element-date {
-    padding: .8em;
-    opacity: 0.8
+
+  @media (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    .vertical-timeline-element-content .vertical-timeline-element-date {
+      padding: .8em;
+      opacity: 0.8
+    }
   }
 `
 

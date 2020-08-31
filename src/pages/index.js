@@ -64,6 +64,7 @@ export const pageQuery = graphql`
         frontmatter {
           title
           alt
+          imageDesc
           image {
             childImageSharp {
               fluid(maxWidth: 400, quality: 90) {

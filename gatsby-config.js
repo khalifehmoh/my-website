@@ -65,6 +65,12 @@ module.exports = {
         name: "blog",
         path: `${__dirname}/src/content/blog`,
       },
+    },
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        exclude: [`imprint/*`, `/privacy/*`, `/blog/*`],
+      }
     }
   ],
 }

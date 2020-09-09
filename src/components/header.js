@@ -122,6 +122,7 @@ const Header = () => {
     <StyledHeader initial={{ opacity: 0, y: -10 }} animate={controls}>
       {/* add blur class to body when sidebar is opened */}
       <Helmet bodyAttributes={{ class: open ? "blur" : "" }}>
+        <meta name="google-site-verification" content="Ek5kyF82RftB02X8YoZ3Ijag517MhhMkZ-tEi8zixn4" />
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;0,700;0,900;1,300;1,400;1,600;1,700;1,900&display=swap" rel="stylesheet" />
       </Helmet>
       <StyledContentWrapper>

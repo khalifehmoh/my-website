@@ -44,10 +44,10 @@ const StyledInterests = styled.div`
   display: grid;
   /* Calculate how many columns are needed, depending on interests count */
   grid-template-columns: repeat(
-    ${({ itemCount }) => Math.ceil(itemCount / 2)},
+    3,
     15.625rem
   );
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(4, auto);
   grid-auto-flow: column;
   column-gap: 1rem;
   row-gap: 1rem;

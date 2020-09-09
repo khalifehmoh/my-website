@@ -1,10 +1,10 @@
 module.exports = {
 
     author: "mohammad khalifeh",
-    siteTitle: "Mohammad Khalifeh Front End Engineer",
+    siteTitle: "Mohammad Khalifeh Front End Software Engineer",
     siteShortTitle: "Home", // Used as logo text in header, footer, and splash screen
-    siteDescription: "Mohammad Khalifeh Front-end Engineer Personal Website",
-    siteUrl: "https://gatsby-starter-portfolio-minimal.netlify.app/",
+    siteDescription: "Mohammad Khalifeh Front-end Software Engineer Personal Website",
+    siteUrl: "http://mohammadkhalifeh.me/",
     siteLanguage: "en_US",
     siteIcon: "src/content/favicon.png", // Relative to gatsby-config file
 
@@ -53,13 +53,5 @@ module.exports = {
     },
 
     footerLinks: [
-        // {
-        //     name: "Contact",
-        //     url: "/#contact"
-        // },
-        // {
-        //     name: "Imprint",
-        //     url: "/imprint"
-        // }
     ]
 }

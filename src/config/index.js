@@ -18,13 +18,9 @@ module.exports = {
             url: "https://www.linkedin.com/in/mohammad-khalifeh/"
         },
         // {
-        //     name: "Medium",
-        //     url: "https://medium.com/@konstantin.muenster"
-        // },
-        {
-            name: "Github",
-            url: "https://github.com/khalifehmoh"
-        }
+        //     name: "Github",
+        //     url: "https://github.com/khalifehmoh"
+        // }
     ],
 
     navLinks: {

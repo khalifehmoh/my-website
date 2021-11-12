@@ -8,6 +8,7 @@ import Hero from "../components/sections/hero"
 import Articles from "../components/sections/articles"
 import About from "../components/sections/about"
 import Interests from "../components/sections/interests"
+import Languages from "../components/sections/languages"
 import Projects from "../components/sections/projects"
 import Contact from "../components/sections/contact"
 import Work from "../components/sections/work-exp"
@@ -24,6 +25,7 @@ const IndexPage = ({ data }) => {
       {articles.length > 0 ? (<Articles content={data.posts.edges} />) : null}
       <Projects content={data.projects.edges} />
       <Interests content={data.interests.edges} />
+      <Languages content={data.languages.edges} />
       <Contact content={data.contact.edges} />
     </Layout>
   )
@@ -90,6 +92,28 @@ export const pageQuery = graphql`
                 }
               }
             }
+          }
+        }
+        frontmatter {
+          title
+        }
+      }
+    }
+  }
+  languages: allMdx(filter: {fileAbsolutePath: {regex: "/languages/"}}) {
+    edges {
+      node {
+        exports {
+          languages {
+            name
+            icon {
+              childImageSharp {
+                fixed(width: 32, height: 32, quality: 90) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
+            level
           }
         }
         frontmatter {

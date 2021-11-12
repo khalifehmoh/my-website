@@ -111,7 +111,7 @@ const StyledProject = styled(motion.div)`
   justify-content: flex-end;
   align-items: center;
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 0;
   flex-shrink: 0;
   padding-right: 2.5rem;
   max-width: 20rem;

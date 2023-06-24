@@ -61,7 +61,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy": "surge public/ mohammadkhalifeh.me"
+    "deploy": "surge public/ mohammadkhalifah.me"
   },
   "repository": {
     "type": "git",

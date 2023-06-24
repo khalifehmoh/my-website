@@ -50,7 +50,8 @@ const StyledContentWrapper = styled(ContentWrapper)`
     .image-label{
       text-align:center;
       width: 100%;
-      display:block
+      display:block;
+      margin-top:1rem
     }
     .about-author {
       border-radius: ${({ theme }) => theme.borderRadius};

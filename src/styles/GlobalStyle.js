@@ -98,7 +98,11 @@ const GlobalStyle = createGlobalStyle`
         color: ${({ theme }) => theme.colors.tertiary};
         opacity: 0.1;
       }
-
+      p {
+        a {
+            color: ${({ theme }) => theme.colors.link};
+        }
+      }
 `;
 
 export default GlobalStyle

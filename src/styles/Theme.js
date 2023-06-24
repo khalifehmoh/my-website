@@ -3,6 +3,7 @@ module.exports = {
     primary: "#000000",
     secondary: "#FFF4D9",
     tertiary: "#F2F2F2",
+    link: "#3982a2",
     gray: "",
     text: "#000000",
     background: "#ffffff",
